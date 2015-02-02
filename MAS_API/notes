@@ -1,0 +1,4 @@
+NOTES:
+Nikhil 26/1
+Agent needs to send its type (ex. customer, maintenance etc.) by message content of 'RegisterMe' message
+m2as.util package contains all classes that will be required by all agents

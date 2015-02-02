@@ -1,0 +1,4 @@
+14:30:35,451  INFO (AgentStarter:100) - [-gui]
+14:30:37,051  INFO (AgentStarter:117) - jade.wrapper.AgentControllerImpl@6b4a4e18
+14:30:37,052  INFO (AgentStarter:117) - jade.wrapper.AgentControllerImpl@27c86f2d
+14:30:37,112  INFO (blackboard:31) - BB Registered with DF
