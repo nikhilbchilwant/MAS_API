@@ -28,7 +28,7 @@ public class FindLocalSchedulingPlan extends Behaviour implements PlanBody{
 	@Override
 	public void init(PlanInstance pInstance) {
 		bfBase = pInstance.getBeliefBase();
-		mset = (BeliefSet<AID>) bfBase.getBelief(AbstractGSCapability.MACHINES);
+//		mset = (BeliefSet<AID>) bfBase.getBelief(AbstractGSCapability.MACHINES);
 	}
 
 	@Override

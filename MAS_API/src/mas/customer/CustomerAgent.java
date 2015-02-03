@@ -6,7 +6,8 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import mas.blackboard.BlackboardId;
+
+import mas.util.ID;
 
 public class CustomerAgent extends AbstractCustomerAgent{
 
@@ -15,7 +16,7 @@ public class CustomerAgent extends AbstractCustomerAgent{
 	public static AID findBlackboardAgent(Agent a){
 		DFAgentDescription dfd = new DFAgentDescription();
 		ServiceDescription sd  = new ServiceDescription();
-		sd.setType( BlackboardId.Agents.Blackboard );
+		sd.setType( ID.Blackboard.Service);
 		dfd.addServices(sd);
 
 		DFAgentDescription[] result;

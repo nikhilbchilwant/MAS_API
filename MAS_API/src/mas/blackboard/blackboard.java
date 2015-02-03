@@ -9,6 +9,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import bdi4jade.core.BDIAgent;
+import mas.util.*;
 
 
 
@@ -20,7 +21,7 @@ public class blackboard extends BDIAgent {
 	        DFAgentDescription dfd = new DFAgentDescription();
 	        dfd.setName( getAID() ); 
 	        ServiceDescription sd  = new ServiceDescription();
-	        sd.setType(BlackboardId.Agents.Blackboard);
+	        sd.setType(ID.Blackboard.Service);
 	        
 	        sd.setName( getLocalName() );
 	        dfd.addServices(sd);

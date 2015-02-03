@@ -1,6 +1,10 @@
 package mas.customer.plan;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import mas.customer.AbstractCustomerAgent;
+import mas.util.ID;
 import jade.core.behaviours.Behaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -12,6 +16,7 @@ import bdi4jade.plan.PlanInstance.EndState;
 
 public class RegisterServicePlan extends Behaviour implements PlanBody{
 	private static final long serialVersionUID = 1L;
+	private Logger log;
 
 	@Override
 	public EndState getEndState() {
@@ -20,19 +25,22 @@ public class RegisterServicePlan extends Behaviour implements PlanBody{
 
 	@Override
 	public void init(PlanInstance pInstance) {
-		
+		System.out.println("inside register service plan in GSA");
+		log=LogManager.getLogger(this.getClass());
 	}
 
 	@Override
 	public void action() {
+		log.info(myAgent.getLocalName()+" registering service ...");
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(myAgent.getAID());
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(AbstractCustomerAgent.service);
+		sd.setType(ID.GlobalScheuler.Service);
 		sd.setName(myAgent.getLocalName());
 		dfd.addServices(sd);
 		try {
 			DFService.register(myAgent, dfd);
+			log.info(myAgent.getLocalName() +" registered Service");
 		} catch (FIPAException fe) {
 			fe.printStackTrace();
 		}

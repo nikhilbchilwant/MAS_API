@@ -4,7 +4,7 @@ package mas.util;
   for parameters and included under parameter chile class*/
 
 public class MASconstants {
-	public static String Blackboard="blackboard";
+/*	public static String Blackboard="blackboard";
 	public static String AGENT_INFO = "info";
 	
 	public class parameters{
@@ -31,6 +31,6 @@ public class MASconstants {
 		public static final String Maintenance="machine-simulator-maint";
 		public static final String Machine="machine-simulator-machine";
 		public static final String Blackboard="blackboard";
-	}
+	}*/
 	
 }

@@ -40,6 +40,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import mas.blackboard.blackboard;
+import mas.globalScheduling.GlobalSchedulingAgent;
+import mas.util.ID;
 
 
 
@@ -58,8 +60,9 @@ public class AgentStarter {
 	static {
 		agents = new HashMap<String, Agent>();
 //		agents.put(HelloWorldAgent.class.getSimpleName(), new HelloWorldAgent());
-		 agents.put("blackboard", new blackboard());
-		 agents.put("Dummy", new TestAgent());
+		 agents.put(ID.Blackboard.LocalName, new blackboard());
+//		 agents.put("Dummy", new TestAgent());
+		 agents.put(ID.GlobalScheuler.LocalName, new GlobalSchedulingAgent());
 		// agents.put(MyAgent.class.getSimpleName(), new MyAgent());
 		// agents.put(NestedCapabilitiesAgent.class.getSimpleName(),
 		// new NestedCapabilitiesAgent());

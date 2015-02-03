@@ -5,9 +5,15 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import mas.blackboard.BlackboardId;
+
+
+
+
+import mas.util.AgentUtil;
+import mas.util.ID;
 import mas.util.MASconstants;
-import mas.util.ParameterSubscription;
+
+import mas.util.SubscriptionForm;
 import mas.util.ZoneDataUpdate;
 import bdi4jade.plan.PlanBody;
 import bdi4jade.plan.PlanInstance;
@@ -42,7 +48,7 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
         
         DFAgentDescription dfd2 = new DFAgentDescription();
         ServiceDescription sd2  = new ServiceDescription();
-        sd2.setType( BlackboardId.Agents.Blackboard );
+        sd2.setType( ID.Blackboard.Service );
         dfd2.addServices(sd2);
         
         DFAgentDescription[] result;
@@ -55,14 +61,14 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 	                bb=result[0].getName();
 	                }
 		} catch (FIPAException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 
 		}
 		
         ACLMessage msg2=new ACLMessage(ACLMessage.CFP);
 		msg2.setConversationId(mas.blackboard.MessageIds.RegisterMe);
-		String[] ZoneDataNames={"JobStatus"};
+		String[] ZoneDataNames={"test"};
 		try {
 			msg2.setContentObject(ZoneDataNames);
 		} catch (IOException e1) {
@@ -73,29 +79,21 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		myAgent.send(msg2);
 		log.info(msg2.getSender().getLocalName()+" sent "+mas.blackboard.MessageIds.RegisterMe);
 		
-		ParameterSubscription ps=new ParameterSubscription(MASconstants.AgentService.Customer);
+//		ParameterSubscription ps=new ParameterSubscription(MASconstants.AgentService.Customer);
+		SubscriptionForm sf=new SubscriptionForm();
 		String[] PSstring=new String[1];
-		PSstring[0]=MASconstants.parameters.jobStatus;
-		ps.AddSubscriptionReq(myAgent.getAID(), PSstring );
-				
-		ACLMessage msg3=new ACLMessage(ACLMessage.CFP);
-		msg3.setConversationId(mas.blackboard.MessageIds.SubscribeParameter);
-		try {
-			msg3.setContentObject(ps);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		msg3.addReceiver(bb);				
+		PSstring[0]=ID.GlobalScheuler.ZoneData.NegotiationJob;
+		sf.AddSubscriptionReq(new AID(ID.GlobalScheuler.LocalName,true), PSstring );
 		
-		myAgent.send(msg3);
+		AgentUtil.subscribeToParam(myAgent, bb, sf);
+
 		
-		log.info(msg3.getSender().getLocalName()+" sent "+mas.blackboard.MessageIds.SubscribeParameter);
+		log.info("sent "+mas.blackboard.MessageIds.SubscribeParameter);
 		
-		ACLMessage msg4=new ACLMessage(ACLMessage.CFP);
+	/*	ACLMessage msg4=new ACLMessage(ACLMessage.CFP);
 		msg4.setConversationId(mas.blackboard.MessageIds.UpdateParameter);
 		try {
-			ZoneDataUpdate zdu=new ZoneDataUpdate("JobStatus", (Object)1, true);
+			ZoneDataUpdate zdu=new ZoneDataUpdate("test", (Object)1, true);
 			msg4.setContentObject(zdu);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -107,7 +105,7 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		
 		msg4.setConversationId(mas.blackboard.MessageIds.UpdateParameter);
 		try {
-			ZoneDataUpdate zdu=new ZoneDataUpdate("JobStatus", (Object)2, true);
+			ZoneDataUpdate zdu=new ZoneDataUpdate("test", (Object)2, true);
 			msg4.setContentObject(zdu);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -115,7 +113,7 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		msg4.addReceiver(bb);
 		myAgent.send(msg4);
 		log.info(msg4.getSender().getLocalName()+" sent "+mas.blackboard.MessageIds.UpdateParameter);
-		
+	*/	
 	}
 
 }

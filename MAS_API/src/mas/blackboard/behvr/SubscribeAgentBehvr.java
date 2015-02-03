@@ -9,7 +9,8 @@ import org.apache.logging.log4j.Logger;
 import mas.blackboard.nameZoneData.NamedZoneData;
 import mas.blackboard.namezonespace.NamedZoneSpace;
 import mas.blackboard.zonespace.ZoneSpace;
-import mas.util.ParameterSubscription.subscription;
+import mas.util.SubscriptionForm;
+
 import bdi4jade.belief.BeliefSet;
 import bdi4jade.core.BeliefBase;
 import jade.core.AID;
@@ -22,7 +23,7 @@ import jade.lang.acl.ACLMessage;
 public class SubscribeAgentBehvr extends Behaviour {
 
 	BeliefBase BBbeliefBase;
-	subscription tempSubscription;
+	SubscriptionForm.parameterSubscription tempSubscription;
 	String AgentLocalName;
 	private int step;
 	private AID subscriber;
@@ -31,7 +32,7 @@ public class SubscribeAgentBehvr extends Behaviour {
 	public static NamedZoneData nzd;
 	
 	public SubscribeAgentBehvr(String AgentServiceType, BeliefBase tempBeliefbase,
-			subscription subscription, AID whoWantsTOSubscribe) {
+			SubscriptionForm.parameterSubscription subscription, AID whoWantsTOSubscribe) {
 		this.BBbeliefBase=tempBeliefbase;
 		this.tempSubscription=subscription;
 		this.subscriber=whoWantsTOSubscribe;
@@ -51,7 +52,7 @@ public class SubscribeAgentBehvr extends Behaviour {
 				BeliefSet<ZoneSpace> ws=(BeliefSet<ZoneSpace>)BBbeliefBase.getBelief(AgentType);
 				
 				if(ws==null){
-					System.out.println("1");
+//					System.out.println("1");
 				}
 				else{
 					
@@ -74,7 +75,7 @@ public class SubscribeAgentBehvr extends Behaviour {
 									step++;									
 								}
 								else{
-									log.error("Couldn't fid zone "+zs.getName());
+									log.error("Couldn't find zone "+zs.getName());
 								}
 
 							}

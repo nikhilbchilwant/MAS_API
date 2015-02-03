@@ -26,6 +26,10 @@ public class AbstractbasicCapability extends Capability {
 
 	private static final long serialVersionUID = 1L;
 	public static final String JOB_GENERATOR = "JOB-GENERATOR";
+	
+	public AbstractbasicCapability(){
+		
+	}
 
 	public Set<Belief<?>> getBeliefs() {
 		Set<Belief<?>> beliefs = new HashSet<Belief<?>>();

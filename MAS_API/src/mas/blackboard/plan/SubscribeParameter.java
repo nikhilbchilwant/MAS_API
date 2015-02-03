@@ -14,6 +14,7 @@ import java.util.Iterator;
 
 
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,8 +24,9 @@ import mas.blackboard.namezonespace.NamedZoneSpace;
 import mas.blackboard.workspace.Workspace;
 import mas.blackboard.zonespace.ZoneSpace;
 import mas.util.AgentUtil;
-import mas.util.ParameterSubscription;
-import mas.util.ParameterSubscription.subscription;
+
+import mas.util.SubscriptionForm;
+
 import bdi4jade.belief.BeliefSet;
 import bdi4jade.core.BDIAgent;
 import bdi4jade.core.BeliefBase;
@@ -38,9 +40,9 @@ public class SubscribeParameter extends OneShotBehaviour implements PlanBody {
 	private AID WhoWantsTOSubscribe;
 	private BeliefBase BBBeliefbase;
 	private String AgentType;
-	private ArrayList<subscription> Subscriptions;
+	private ArrayList<SubscriptionForm.parameterSubscription> Subscriptions;
 	private boolean IsActionComplete=false;
-	private ParameterSubscription ps;
+	private SubscriptionForm ps;
 	private Logger log;
 	
 	@Override
@@ -63,8 +65,8 @@ public class SubscribeParameter extends OneShotBehaviour implements PlanBody {
 		WhoWantsTOSubscribe=RecievedMsg.getSender();
 
 		try {					
-			ps = (ParameterSubscription)(mg.getMessage().getContentObject());
-			Subscriptions = ps.subscriptionReq;
+			ps = (SubscriptionForm)(mg.getMessage().getContentObject());
+			Subscriptions = ps.GetSubscriptions();
 			BBBeliefbase=arg0.getBeliefBase();
 			
 		} catch (UnreadableException e) {

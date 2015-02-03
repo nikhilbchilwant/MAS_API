@@ -7,7 +7,8 @@ package Test;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import mas.blackboard.BlackboardId;
+
+import mas.util.ID;
 import bdi4jade.core.BDIAgent;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -23,7 +24,7 @@ public class TestAgent extends BDIAgent {
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(getAID());
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(BlackboardId.Agents.Customer);
+		sd.setType(ID.Customer.Service);
 
 		sd.setName(getLocalName());
 		dfd.addServices(sd);

@@ -59,6 +59,7 @@ public class AddAgent extends OneShotBehaviour implements PlanBody{
 	@Override
 	public void action() {		  
 		AgentType=AgentUtil.GetAgentService(AgentToReg,myAgent);
+		log.info("Adding Agent :"+AgentToReg.getLocalName());
 		BeliefSet<ZoneSpace> wspace;
 		if(!belief.hasBelief(AgentType)){
 			wspace=new WorkspaceBeliefSet(AgentType);			
@@ -76,7 +77,7 @@ public class AddAgent extends OneShotBehaviour implements PlanBody{
 		}
 		wspace.addValue(zs);
 		((BDIAgent)myAgent).getRootCapability().getBeliefBase().addBelief(wspace);
-		log.info("Agent added. New Belief base:");
+		log.info(AgentType +" type Agent added");
 //		log.info(((BDIAgent)myAgent).getRootCapability().getBeliefBase());
 	}
 }

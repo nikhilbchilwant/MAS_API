@@ -55,4 +55,6 @@ public class MessageIds {
 		public static String maint_job = "Maintenance-Job";
 		public static String maint_job_data = "MJTime";
 		public static String inspect_job_data = "IJTime";
+		
+		
 	}

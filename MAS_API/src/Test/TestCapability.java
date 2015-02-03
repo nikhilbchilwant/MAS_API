@@ -42,7 +42,7 @@ public class TestCapability extends Capability {
 		//The other plan will run by itself by virtue of receiving messages
 		log=LogManager.getLogger();
 		myAgent.addGoal(new SendMsgGoal());
-		log.info("Send message goal is added");
+//		log.info("Send message goal is added");
 		
 	}
 	
