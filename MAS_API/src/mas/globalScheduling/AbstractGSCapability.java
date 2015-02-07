@@ -29,7 +29,7 @@ import bdi4jade.core.PlanLibrary;
 import bdi4jade.plan.Plan;
 import bdi4jade.util.plan.SimplePlan;
 
-public class AbstractGSCapability  extends Capability {
+public abstract class AbstractGSCapability  extends Capability {
 
 
 	private static final long serialVersionUID = 1L;

@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import bdi4jade.core.BDIAgent;
 import bdi4jade.core.Capability;
 
-public class AbstractGlobalSchedulingAgent extends BDIAgent{
+public abstract class AbstractGlobalSchedulingAgent extends BDIAgent{
 
 	
 	private static final long serialVersionUID = 1L;
