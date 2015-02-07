@@ -44,13 +44,6 @@ import mas.globalScheduling.GlobalSchedulingAgent;
 import mas.util.ID;
 
 
-
-
-
-
-
-
-
 public class AgentStarter {
 
 	private static final Map<String, Agent> agents;
@@ -61,8 +54,8 @@ public class AgentStarter {
 		agents = new HashMap<String, Agent>();
 //		agents.put(HelloWorldAgent.class.getSimpleName(), new HelloWorldAgent());
 		 agents.put(ID.Blackboard.LocalName, new blackboard());
-		 agents.put("customer", new TestAgent());
-		 agents.put(ID.GlobalScheuler.LocalName, new GlobalSchedulingAgent());
+		 agents.put(ID.Customer.LocalName, new TestAgent());
+		 agents.put(ID.GlobalScheduler.LocalName, new GlobalSchedulingAgent());
 		// agents.put(MyAgent.class.getSimpleName(), new MyAgent());
 		// agents.put(NestedCapabilitiesAgent.class.getSimpleName(),
 		// new NestedCapabilitiesAgent());

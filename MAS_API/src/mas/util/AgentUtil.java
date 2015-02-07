@@ -26,7 +26,7 @@ public class AgentUtil {
 		DFAgentDescription dfd = new DFAgentDescription();
 
 		ServiceDescription sd = new ServiceDescription();
-		log.info("Queried Agent service of "+AgentToFind.getLocalName()+" by "+CurrentAgent.getLocalName());
+		
 		
 		dfd.addServices(sd);
 
@@ -38,7 +38,8 @@ public class AgentUtil {
 			  ServiceDescription sdd;
 			      if ((result != null) && (result.length > 0)){
 			    	  for(DFAgentDescription d : result){
-						  if(d.getName().equals(AgentToFind)){
+//			    		  log.info("found :"+d.getName()+" VS "+AgentToFind);
+						  if(d.getName().getLocalName().equals(AgentToFind.getLocalName())){
 							  log.info("Found service type "+((ServiceDescription) d.getAllServices().next()).getType());
 							  return ((ServiceDescription) d.getAllServices().next()).getType();
 							}

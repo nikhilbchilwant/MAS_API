@@ -84,8 +84,8 @@ public class SubscribeParameter extends OneShotBehaviour implements PlanBody {
 		for(int k=0;k<Subscriptions.size();k++)
 		{
 			AID AgentToReg=Subscriptions.get(k).Agent;
-			AgentType=AgentUtil.GetAgentService(AgentToReg,myAgent);
-			myAgent.addBehaviour(new SubscribeAgentBehvr(AgentType, BBBeliefbase, Subscriptions.get(k),WhoWantsTOSubscribe));						
+//			AgentType=AgentUtil.GetAgentService(AgentToReg,myAgent);
+			myAgent.addBehaviour(new SubscribeAgentBehvr(AgentToReg, BBBeliefbase, Subscriptions.get(k),WhoWantsTOSubscribe));						
 		}
 		IsActionComplete=true;
 	}

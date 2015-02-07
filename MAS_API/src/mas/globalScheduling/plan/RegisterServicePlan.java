@@ -34,7 +34,7 @@ public class RegisterServicePlan extends OneShotBehaviour implements PlanBody{
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(myAgent.getAID());
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(ID.GlobalScheuler.Service);
+		sd.setType(ID.GlobalScheduler.Service);
 		sd.setName(myAgent.getLocalName());
 		dfd.addServices(sd);
 		try {

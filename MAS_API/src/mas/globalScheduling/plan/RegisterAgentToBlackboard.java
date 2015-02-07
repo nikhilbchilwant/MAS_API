@@ -73,8 +73,8 @@ public class RegisterAgentToBlackboard extends OneShotBehaviour implements PlanB
 		}
 
 		
-		String[] zones = {ID.GlobalScheuler.ZoneData.NegotiationJob,
-				ID.GlobalScheuler.ZoneData.WorkOrder				
+		String[] zones = {ID.GlobalScheduler.ZoneData.NegotiationJob,
+				ID.GlobalScheduler.ZoneData.WorkOrder				
 		};
 			
 		AgentUtil.makeZoneBB(myAgent,zones);

@@ -45,7 +45,7 @@ public class ID {
 	}
 
 	
-	public class GlobalScheuler{
+	public class GlobalScheduler{
 		public static final String Service ="global-scheduling-agent";
 		public static final String LocalName ="GlobalSchedulingAgent";
 		/*public class Parameters{

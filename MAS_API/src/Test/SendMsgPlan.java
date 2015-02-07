@@ -86,8 +86,8 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		
 		SubscriptionForm sf=new SubscriptionForm();
 		String[] PSstring=new String[1];
-		PSstring[0]=ID.GlobalScheuler.ZoneData.NegotiationJob;
-		sf.AddSubscriptionReq(new AID(ID.GlobalScheuler.LocalName,true), PSstring );
+		PSstring[0]=ID.GlobalScheduler.ZoneData.NegotiationJob;
+		sf.AddSubscriptionReq(new AID(ID.GlobalScheduler.LocalName,true), PSstring );
 		
 		AgentUtil.subscribeToParam(myAgent, bb, sf);
 

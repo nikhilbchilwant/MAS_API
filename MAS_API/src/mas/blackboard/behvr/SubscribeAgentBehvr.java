@@ -9,11 +9,12 @@ import org.apache.logging.log4j.Logger;
 import mas.blackboard.nameZoneData.NamedZoneData;
 import mas.blackboard.namezonespace.NamedZoneSpace;
 import mas.blackboard.zonespace.ZoneSpace;
+import mas.util.AgentUtil;
 import mas.util.SubscriptionForm;
-
 import bdi4jade.belief.BeliefSet;
 import bdi4jade.core.BeliefBase;
 import jade.core.AID;
+import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -29,9 +30,10 @@ public class SubscribeAgentBehvr extends Behaviour {
 	private AID subscriber;
 	private String AgentType;
 	private Logger log;
-	public static NamedZoneData nzd;
+	private static NamedZoneData nzd;
+	private AID AgentToReg;
 	
-	public SubscribeAgentBehvr(String AgentServiceType, BeliefBase tempBeliefbase,
+	public SubscribeAgentBehvr(AID agent_to_reg, BeliefBase tempBeliefbase,
 			SubscriptionForm.parameterSubscription subscription, AID whoWantsTOSubscribe) {
 		this.BBbeliefBase=tempBeliefbase;
 		this.tempSubscription=subscription;
@@ -39,7 +41,8 @@ public class SubscribeAgentBehvr extends Behaviour {
 		DFAgentDescription dfa=new DFAgentDescription();
 		ServiceDescription sd=new ServiceDescription();
 		dfa.addServices(sd);
-		this.AgentType=AgentServiceType;
+		this.AgentToReg=agent_to_reg;
+		
 
 	}
 
@@ -49,10 +52,17 @@ public class SubscribeAgentBehvr extends Behaviour {
 		step=1;
 		switch(step){
 			case 1:
+//				log.info(AgentToReg);
+				this.AgentType=AgentUtil.GetAgentService(AgentToReg,myAgent);
+				if(AgentType!=null){
+					step++;
+				}
+						
+			case 2:
 				BeliefSet<ZoneSpace> ws=(BeliefSet<ZoneSpace>)BBbeliefBase.getBelief(AgentType);
 				
 				if(ws==null){
-//					System.out.println("1");
+					
 				}
 				else{
 					
@@ -92,7 +102,7 @@ public class SubscribeAgentBehvr extends Behaviour {
 
 	@Override
 	public boolean done() {
-		return step>1;
+		return step>2;
 	}
 
 }
