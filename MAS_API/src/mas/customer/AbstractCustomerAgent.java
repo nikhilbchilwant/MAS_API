@@ -15,7 +15,5 @@ public abstract class AbstractCustomerAgent extends BDIAgent {
 		addCapability(new basicCapability());
 	}
 	
-	public void addCapability(Capability c){
-		this.getRootCapability().addChild(c);
-	}
+
 }

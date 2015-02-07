@@ -6,20 +6,18 @@ import jade.lang.acl.MessageTemplate;
 import java.util.HashSet;
 import java.util.Set;
 
+
+import mas.customer.plan.RegisterServicePlan;
+import mas.globalScheduling.goal.RegisterAgentGoal;
+import mas.globalScheduling.goal.RegisterServiceGoal;
+import mas.globalScheduling.goal.RegisterWithBBGoal;
+import mas.globalScheduling.plan.RegisterAgentToBlackboard;
+import mas.util.ID;
+import mas.util.MessageIds;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import mas.blackboard.MessageIds;
-import mas.customer.goal.GenerateJobGoal;
-import mas.customer.goal.dispatchJobGoal;
-import mas.customer.plan.DispatchJobPlan;
-import mas.customer.plan.RegisterServicePlan;
-import mas.customer.plan.jobGeneratePlan;
-import mas.globalScheduling.belief.customBelief;
-import mas.globalScheduling.goal.RegisterAgentGoal;
-import mas.globalScheduling.goal.RegisterServiceGoal;
-import mas.util.AgentUtil;
-import mas.util.ID;
 import bdi4jade.belief.Belief;
 import bdi4jade.belief.BeliefSet;
 import bdi4jade.belief.TransientBeliefSet;
@@ -38,6 +36,7 @@ public abstract class AbstractGSCapability  extends Capability {
 
 	public AbstractGSCapability(){
 		super(new BeliefBase(getBeliefs()), new PlanLibrary(getPlans()));
+
 }
 	
 	public static Set<Belief<?>> getBeliefs() {
@@ -53,9 +52,12 @@ public abstract class AbstractGSCapability  extends Capability {
 	
 	public static Set<Plan> getPlans() {
 		Set<Plan> plans = new HashSet<Plan>();		
-		plans.add(new SimplePlan(RegisterAgentGoal.class, RegisterServicePlan.class));
-		
-		/*plans.add(new SimplePlan(MessageTemplate.MatchConversationId(
+		plans.add(new SimplePlan(RegisterServiceGoal.class, RegisterServicePlan.class));
+		plans.add(new SimplePlan(RegisterAgentGoal.class,RegisterAgentToBlackboard.class));
+	
+
+/*		
+		plans.add(new SimplePlan(MessageTemplate.MatchConversationId(
 							MessageIds.JobFromCustomer),SendReplyToCustomer.class));*/
 		
 		return plans;
@@ -64,8 +66,10 @@ public abstract class AbstractGSCapability  extends Capability {
 	@Override
 	protected void setup() {
 		log=LogManager.getLogger();
+		
 		myAgent.addGoal(new RegisterServiceGoal());
-		log.info("Inside AbstractGSACapab");
+		myAgent.addGoal(new RegisterAgentGoal());
+		log.info(myAgent.getAllGoals());
 	//Plan to register with bb is to be implemented by user
 	}
 

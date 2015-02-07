@@ -9,10 +9,12 @@ import org.apache.logging.log4j.Logger;
 
 
 
+
 import mas.util.AgentUtil;
 import mas.util.ID;
-import mas.util.MASconstants;
 
+
+import mas.util.MessageIds;
 import mas.util.SubscriptionForm;
 import mas.util.ZoneDataUpdate;
 import bdi4jade.plan.PlanBody;
@@ -67,19 +69,21 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		}
 		
         ACLMessage msg2=new ACLMessage(ACLMessage.CFP);
-		msg2.setConversationId(mas.blackboard.MessageIds.RegisterMe);
-		String[] ZoneDataNames={"test"};
+		msg2.setConversationId(MessageIds.RegisterMe);
+		String[] ZoneDataNames={ID.Customer.ZoneData.JobList,ID.Customer.ZoneData.acceptedJobs,ID.Customer.ZoneData.Negotiation};
 		try {
 			msg2.setContentObject(ZoneDataNames);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		msg2.addReceiver(bb);
-		myAgent.send(msg2);
-		log.info(msg2.getSender().getLocalName()+" sent "+mas.blackboard.MessageIds.RegisterMe);
+		AgentUtil.makeZoneBB(myAgent, ZoneDataNames);
+//		msg2.addReceiver(bb);
+//		myAgent.send(msg2);
+//		log.info(msg2.getSender().getLocalName()+" sent "+MessageIds.RegisterMe);
 		
 //		ParameterSubscription ps=new ParameterSubscription(MASconstants.AgentService.Customer);
+		
 		SubscriptionForm sf=new SubscriptionForm();
 		String[] PSstring=new String[1];
 		PSstring[0]=ID.GlobalScheuler.ZoneData.NegotiationJob;
@@ -88,7 +92,7 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		AgentUtil.subscribeToParam(myAgent, bb, sf);
 
 		
-		log.info("sent "+mas.blackboard.MessageIds.SubscribeParameter);
+		log.info("sent "+MessageIds.SubscribeParameter);
 		
 	/*	ACLMessage msg4=new ACLMessage(ACLMessage.CFP);
 		msg4.setConversationId(mas.blackboard.MessageIds.UpdateParameter);

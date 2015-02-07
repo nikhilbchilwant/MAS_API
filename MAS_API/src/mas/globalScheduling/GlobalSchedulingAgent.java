@@ -20,10 +20,12 @@ public class GlobalSchedulingAgent extends AbstractGlobalSchedulingAgent{
 	@Override
 	protected void init() {
 		super.init();		
-		addCapability(new BasicCapability());
 		
-		
-/*		
+		log=LogManager.getLogger();
+		Capability bCap=  new BasicCapability();
+		addCapability(bCap);
+
+/*						
 		AID bba = AgentUtil.findBlackboardAgent(this);
 		bCap.getBeliefBase().updateBelief(
 					ID.Blackboard.LocalName, bba);
@@ -43,9 +45,9 @@ public class GlobalSchedulingAgent extends AbstractGlobalSchedulingAgent{
 		
 		subform.AddSubscriptionReq(target, params);
 		
-		AID target_LSA=new AID(ID.LocalScheduler.LocalName,AID.ISLOCALNAME);
+		AID target_LSA=new AID(ID.Customer.LocalName,AID.ISLOCALNAME);
 		
-		String[] params_LSA={ID.LocalScheduler.ZoneData.WaitingTime};
+		String[] params_LSA={ID.Customer.ZoneData.JobList};
 		subform.AddSubscriptionReq(target_LSA, params_LSA);
 		
 		AgentUtil.subscribeToParam(this, bba, subform);*/

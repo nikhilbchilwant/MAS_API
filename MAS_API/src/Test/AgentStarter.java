@@ -61,7 +61,7 @@ public class AgentStarter {
 		agents = new HashMap<String, Agent>();
 //		agents.put(HelloWorldAgent.class.getSimpleName(), new HelloWorldAgent());
 		 agents.put(ID.Blackboard.LocalName, new blackboard());
-//		 agents.put("Dummy", new TestAgent());
+		 agents.put("customer", new TestAgent());
 		 agents.put(ID.GlobalScheuler.LocalName, new GlobalSchedulingAgent());
 		// agents.put(MyAgent.class.getSimpleName(), new MyAgent());
 		// agents.put(NestedCapabilitiesAgent.class.getSimpleName(),

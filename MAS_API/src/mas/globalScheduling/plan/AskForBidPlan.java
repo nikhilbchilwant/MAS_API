@@ -1,9 +1,10 @@
 package mas.globalScheduling.plan;
 
 import java.io.IOException;
-import mas.blackboard.MessageIds;
+
 import mas.globalScheduling.AbstractGSCapability;
 import mas.job.job;
+import mas.util.MessageIds;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;

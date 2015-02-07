@@ -25,13 +25,13 @@ public class RegisterServicePlan extends Behaviour implements PlanBody{
 
 	@Override
 	public void init(PlanInstance pInstance) {
-		System.out.println("inside register service plan in GSA");
+
 		log=LogManager.getLogger(this.getClass());
 	}
 
 	@Override
 	public void action() {
-		log.info(myAgent.getLocalName()+" registering service ...");
+//		log.info(myAgent.getLocalName()+" registering service ...");
 		DFAgentDescription dfd = new DFAgentDescription();
 		dfd.setName(myAgent.getAID());
 		ServiceDescription sd = new ServiceDescription();
@@ -39,8 +39,9 @@ public class RegisterServicePlan extends Behaviour implements PlanBody{
 		sd.setName(myAgent.getLocalName());
 		dfd.addServices(sd);
 		try {
+			
 			DFService.register(myAgent, dfd);
-			log.info(myAgent.getLocalName() +" registered Service");
+			log.info(myAgent.getLocalName() +" registered on DF");
 		} catch (FIPAException fe) {
 			fe.printStackTrace();
 		}
@@ -48,6 +49,6 @@ public class RegisterServicePlan extends Behaviour implements PlanBody{
 
 	@Override
 	public boolean done() {
-		return false;
+		return true;
 	}
 }
