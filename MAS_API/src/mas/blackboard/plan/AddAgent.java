@@ -26,11 +26,11 @@ import bdi4jade.plan.PlanInstance;
 import bdi4jade.plan.PlanInstance.EndState;
 
 public class AddAgent extends OneShotBehaviour implements PlanBody{
-
-	private AID AgentToReg;
-	private BeliefBase belief; 
+//	adds agent in blackboard workspace
+	private AID AgentToReg; //agent to be added in blackboard workspace
+	private BeliefBase belief;  //belief base of blackboard
 	private String AgentType; //To be taken from message content
-	private String[] ZoneDataNameArray;
+	private String[] ZoneDataNameArray; //containes names of zone data s to be created fro AgentToReg
 	private Logger log;
 
 	@Override
@@ -69,14 +69,13 @@ public class AddAgent extends OneShotBehaviour implements PlanBody{
 			wspace=(BeliefSet<ZoneSpace>)belief.getBelief(AgentType);
 		}
 		NamedZoneSpace nz=new NamedZoneSpace(AgentToReg);
-		ZoneSpace zs=new ZoneSpace(nz);
+		ZoneSpace zs=new ZoneSpace(nz,myAgent);
 		for(int i=0;i<ZoneDataNameArray.length;i++){
 			NamedZoneData nzd=new NamedZoneData(ZoneDataNameArray[i]);			
-			
 			zs.createZoneData(nzd);
 		}
 		wspace.addValue(zs);
-		((BDIAgent)myAgent).getRootCapability().getBeliefBase().addBelief(wspace);
+		((BDIAgent)myAgent).getRootCapability().getBeliefBase().addBelief(wspace); //update belief base
 		log.info(AgentType +" type Agent added");
 //		log.info(((BDIAgent)myAgent).getRootCapability().getBeliefBase());
 	}

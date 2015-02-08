@@ -5,7 +5,7 @@ import jade.lang.acl.MessageTemplate;
 import java.util.HashSet;
 import java.util.Set;
 
-import mas.blackboard.goal.RegisterGoal;
+
 import mas.blackboard.plan.AddAgent;
 import mas.blackboard.plan.SubscribeParameter;
 import mas.blackboard.plan.UpdateParam;
@@ -64,14 +64,14 @@ public class CommunicationCenter extends Capability {
 	private static Set<Belief<?>> getBeliefs(BDIAgent bBagent) {
 		
 		Set<Belief<?>> WorkspaceSet = new HashSet<Belief<?>>(); //  '?' means Any type extending Object (including Object)
-		
+		//WorkspaceSet stores Workspaces
 		log.info("Added beleifs");
 		
 		return WorkspaceSet;
 	}
 	
 	 protected void setup(){
-		 myAgent.addGoal(new RegisterGoal());
+//		 myAgent.addGoal(new RegisterGoal());
 /*		 myAgent.addBehaviour(new SubscribeParameter());
 		 myAgent.addBehaviour(new UpdateParam());*/
 	

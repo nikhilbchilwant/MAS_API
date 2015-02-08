@@ -85,8 +85,9 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 //		ParameterSubscription ps=new ParameterSubscription(MASconstants.AgentService.Customer);
 		
 		SubscriptionForm sf=new SubscriptionForm();
-		String[] PSstring=new String[1];
+		String[] PSstring=new String[2];
 		PSstring[0]=ID.GlobalScheduler.ZoneData.NegotiationJob;
+		PSstring[1]=ID.GlobalScheduler.ZoneData.waitingTime;
 		sf.AddSubscriptionReq(new AID(ID.GlobalScheduler.LocalName,true), PSstring );
 		
 		AgentUtil.subscribeToParam(myAgent, bb, sf);
@@ -94,10 +95,10 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		
 		log.info("sent "+MessageIds.SubscribeParameter);
 		
-	/*	ACLMessage msg4=new ACLMessage(ACLMessage.CFP);
-		msg4.setConversationId(mas.blackboard.MessageIds.UpdateParameter);
+		ACLMessage msg4=new ACLMessage(ACLMessage.CFP);
+		msg4.setConversationId(MessageIds.UpdateParameter);
 		try {
-			ZoneDataUpdate zdu=new ZoneDataUpdate("test", (Object)1, true);
+			ZoneDataUpdate zdu=new ZoneDataUpdate(ID.Customer.ZoneData.JobList, (Object)1, true);
 			msg4.setContentObject(zdu);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -105,9 +106,10 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		msg4.addReceiver(bb);
 		myAgent.send(msg4);
 		
-		log.info(msg4.getSender().getLocalName()+" sent "+mas.blackboard.MessageIds.UpdateParameter);
 		
-		msg4.setConversationId(mas.blackboard.MessageIds.UpdateParameter);
+		log.info("update sent");
+		
+		/*msg4.setConversationId(mas.blackboard.MessageIds.UpdateParameter);
 		try {
 			ZoneDataUpdate zdu=new ZoneDataUpdate("test", (Object)2, true);
 			msg4.setContentObject(zdu);
@@ -116,8 +118,8 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		}
 		msg4.addReceiver(bb);
 		myAgent.send(msg4);
-		log.info(msg4.getSender().getLocalName()+" sent "+mas.blackboard.MessageIds.UpdateParameter);
-	*/	
+		log.info(msg4.getSender().getLocalName()+" sent "+mas.blackboard.MessageIds.UpdateParameter);*/
+		
 	}
 
 }

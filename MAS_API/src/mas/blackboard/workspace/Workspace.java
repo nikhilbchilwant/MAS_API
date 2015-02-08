@@ -28,13 +28,13 @@ public class Workspace<T> extends Belief<T>implements WorkspaceIFace{
 		return new Workspace(name.name());
 	}*/
 	
-	@Override
+/*	@Override
 	public void createZoneSpace(NamedZoneSpace name) {
 		if(! ZSpaces.containsKey(name)){
 			ZoneSpace zs = new ZoneSpace(name);
 			ZSpaces.put(name, zs);
 		}
-	}
+	}*/
 
 	@Override
 	public void dropZoneSpace(NamedZoneSpace title) {

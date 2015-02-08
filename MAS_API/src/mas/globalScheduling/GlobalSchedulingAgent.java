@@ -24,7 +24,7 @@ public class GlobalSchedulingAgent extends AbstractGlobalSchedulingAgent{
 		log=LogManager.getLogger();
 		Capability bCap=  new BasicCapability();
 		addCapability(bCap);
-
+		
 /*						
 		AID bba = AgentUtil.findBlackboardAgent(this);
 		bCap.getBeliefBase().updateBelief(

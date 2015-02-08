@@ -1,28 +1,37 @@
 package mas.blackboard.zonedata;
 
 import jade.core.AID;
+import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import mas.blackboard.nameZoneData.NamedZoneData;
+import mas.util.MessageIds;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ZoneData implements ZoneDataIFace{
+public class ZoneData implements ZoneDataIFace, Serializable{
 	private NamedZoneData name;
 	private Set<Object> data;
-	private Set<AID> subscribers;
+	public Set<AID> subscribers;
 	private Logger log;
+	public String UpdateMessageID;
+	private Agent bb; //needed for sending update message
 	
-	public ZoneData(NamedZoneData name2){
+	public ZoneData(NamedZoneData name2, String UpdateMsgID, Agent blackboard){
 		log=LogManager.getLogger();
 		this.name = name2;
 		this.data = new HashSet<Object>();
 		this.subscribers=new HashSet<AID>();
+		this.UpdateMessageID=UpdateMessageID; //ID of message to be used while sending update of data
+		this.bb=blackboard;
 	}
 	
 	/*public static ZoneData newInstance(NamedZone title){
@@ -33,17 +42,15 @@ public class ZoneData implements ZoneDataIFace{
 		return this.name.name();
 	}
 	
-	@Override
+	/*@Override
 	public boolean updateItem(Object oldObj, Object newObj){
 		if(this.data.contains(oldObj)){
 			this.data.remove(oldObj);
 			this.data.add(newObj);
 		}
-//			this.data.removeAll(arg0)
-		
-		//How hashset compares object? => .equals()
+
 		return true;
-	}
+	}*/
 		
 	
 	
@@ -80,6 +87,8 @@ public class ZoneData implements ZoneDataIFace{
 	@Override
 	public void addItem(Object obj) {
 		this.data.add(obj);
+		sendUpdate();
+	
 	}
 
 	@Override
@@ -110,6 +119,24 @@ public class ZoneData implements ZoneDataIFace{
 	@Override
 	public void RemoveAllnAdd(Object obj) {
 		data.clear();
-		data.add(obj);		
+		data.add(obj);
+	
 	}
+
+	public void sendUpdate(){
+		ACLMessage update=new ACLMessage(ACLMessage.INFORM);		
+		update.setConversationId(UpdateMessageID);
+		for(AID reciever : subscribers){
+			update.addReceiver(reciever);
+			
+		}
+		try {
+			update.setContentObject(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		bb.send(update);
+		log.info("sent update of "+name.name());
+	}
+
 }

@@ -9,7 +9,7 @@ public class NamedZoneSpace implements ZoneSpaceName
    private AID name = null;
 
    public NamedZoneSpace(AID name) {
-//      Validate.notNull(name);
+
       this.name = name;
    }
 

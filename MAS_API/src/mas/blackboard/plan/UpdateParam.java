@@ -5,6 +5,7 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import mas.blackboard.nameZoneData.NamedZoneData;
+import mas.blackboard.zonedata.ZoneData;
 import mas.blackboard.zonespace.ZoneSpace;
 import mas.util.AgentUtil;
 import mas.util.ZoneDataUpdate;
@@ -23,7 +25,7 @@ import bdi4jade.plan.PlanInstance;
 import bdi4jade.plan.PlanInstance.EndState;
 
 public class UpdateParam extends OneShotBehaviour implements PlanBody {
-
+//updates value of zone data after reieving update from concerned agent
 	private ACLMessage msg;
 	private AID Agent;
 	private ZoneDataUpdate info;
@@ -69,6 +71,13 @@ public class UpdateParam extends OneShotBehaviour implements PlanBody {
 							((BeliefSet<ZoneSpace>)BBBeliefBase.getBelief(AgentType)).removeValue(zs);
 
 							if(zs.findZoneData(nzd)!=null){
+								
+						/*		ACLMessage update=new ACLMessage(ACLMessage.INFORM);
+								ZoneData zd=((ZoneData)zs.findZoneData(nzd));
+								update.setConversationId(zd.UpdateMessageID);
+								for(AID reciever : zd.subscribers){
+									update.addReceiver(reciever);	
+								}*/
 								if(info.toAppendToCurrentValue()){
 									zs.findZoneData(nzd).addItem(info.getValue());
 								}
@@ -76,6 +85,14 @@ public class UpdateParam extends OneShotBehaviour implements PlanBody {
 									zs.findZoneData(nzd).RemoveAllnAdd(info.getValue());
 								}
 								
+								/*try {
+									update.setContentObject(zs.findZoneData(nzd));
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+								myAgent.send(update);*/
 								((BeliefSet<ZoneSpace>)BBBeliefBase.getBelief(AgentType)).addValue(zs);
 								log.info("updated value of "+nzd.name());
 								log.info("updated ZoneData: "+(((BeliefSet<ZoneSpace>)BBBeliefBase.getBelief(AgentType)).getValue().iterator().next().findZoneData(new NamedZoneData(info.getName()))));

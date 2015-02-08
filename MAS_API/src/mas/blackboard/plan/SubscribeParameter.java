@@ -36,11 +36,11 @@ import bdi4jade.plan.PlanInstance;
 import bdi4jade.plan.PlanInstance.EndState;
 /* User should not be able to modify method of subscription */
 public class SubscribeParameter extends OneShotBehaviour implements PlanBody {
-
-	private AID WhoWantsTOSubscribe;
-	private BeliefBase BBBeliefbase;
-	private String AgentType;
-	private ArrayList<SubscriptionForm.parameterSubscription> Subscriptions;
+//plan to add agent in subscriber list of ZoneData	
+	private AID WhoWantsTOSubscribe; //agent which wants to subscribe
+	private BeliefBase BBBeliefbase; 
+//	private String AgentType; 
+	private ArrayList<SubscriptionForm.parameterSubscription> Subscriptions; 
 	private boolean IsActionComplete=false;
 	private SubscriptionForm ps;
 	private Logger log;

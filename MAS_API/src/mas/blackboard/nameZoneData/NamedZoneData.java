@@ -5,10 +5,17 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class NamedZoneData implements ZoneDataName
 {
    private String name = null;
+   public String UpdateMsgID; //message ID of update message to be sent by Blackboard to subscribers of ZoneData
+
 
    public NamedZoneData(String name) {
-//      Validate.notNull(name);
       this.name = name;
+
+   }
+   
+   public NamedZoneData(String name, String UpdateMsgID){
+	   this.name=name;
+	   this.UpdateMsgID=UpdateMsgID;
    }
 
    public String name() {

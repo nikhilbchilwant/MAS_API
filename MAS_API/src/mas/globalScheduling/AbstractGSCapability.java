@@ -11,7 +11,7 @@ import mas.customer.plan.RegisterServicePlan;
 import mas.globalScheduling.goal.RegisterAgentGoal;
 import mas.globalScheduling.goal.RegisterServiceGoal;
 import mas.globalScheduling.goal.RegisterWithBBGoal;
-import mas.globalScheduling.plan.RegisterAgentToBlackboard;
+import mas.globalScheduling.plan.*;
 import mas.util.ID;
 import mas.util.MessageIds;
 
@@ -54,11 +54,10 @@ public abstract class AbstractGSCapability  extends Capability {
 		Set<Plan> plans = new HashSet<Plan>();		
 		plans.add(new SimplePlan(RegisterServiceGoal.class, RegisterServicePlan.class));
 		plans.add(new SimplePlan(RegisterAgentGoal.class,RegisterAgentToBlackboard.class));
-	
-
-/*		
-		plans.add(new SimplePlan(MessageTemplate.MatchConversationId(
-							MessageIds.JobFromCustomer),SendReplyToCustomer.class));*/
+		plans.add(new SimplePlan(MessageTemplate.MatchConversationId(MessageIds.JobFromCustomer),
+				SendReplyToCustomerPlan.class));
+	/*	plans.add(new SimplePlan(MessageTemplate.MatchConversationId(
+							MessageIds.JobFromCustomer),SendReplyToCustomerPlan.class));*/
 		
 		return plans;
 	}	
@@ -69,7 +68,7 @@ public abstract class AbstractGSCapability  extends Capability {
 		
 		myAgent.addGoal(new RegisterServiceGoal());
 		myAgent.addGoal(new RegisterAgentGoal());
-		log.info(myAgent.getAllGoals());
+//		log.info(myAgent.getAllGoals());
 	//Plan to register with bb is to be implemented by user
 	}
 

@@ -13,7 +13,7 @@ import mas.blackboard.zonespace.ZoneSpace;
 public interface WorkspaceIFace extends Serializable
 {
 //   public static final WorkspaceIFace DEFAULT = new DefaultWorkspace();
-	public void createZoneSpace(NamedZoneSpace title);
+//	public void createZoneSpace(NamedZoneSpace title);
 	public void dropZoneSpace(NamedZoneSpace title);
 	public ZoneSpace findZoneSpace(NamedZoneSpace title);
 	public boolean insertItem(NamedZoneSpace zSpaceName,NamedZoneData var, Object obj);

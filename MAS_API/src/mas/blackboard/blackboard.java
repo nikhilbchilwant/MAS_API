@@ -18,22 +18,28 @@ public class blackboard extends BDIAgent {
 	private Logger log;
 	public void init() {
 		log=LogManager.getLogger(this.getClass());
-	        DFAgentDescription dfd = new DFAgentDescription();
-	        dfd.setName( getAID() ); 
-	        ServiceDescription sd  = new ServiceDescription();
-	        sd.setType(ID.Blackboard.Service);
-	        
-	        sd.setName( getLocalName() );
-	        dfd.addServices(sd);
-	        
-	        try {  
+        
+		/* Registering with DF*/
+		DFAgentDescription dfd = new DFAgentDescription();
+        dfd.setName( getAID() ); 
+        ServiceDescription sd  = new ServiceDescription();
+        sd.setType(ID.Blackboard.Service);
+        
+        sd.setName( getLocalName() );
+        dfd.addServices(sd);
+        
+        try {  
 
-	        	DFService.register(this, dfd );
-	        	log.info("BB Registered with DF");
-	        }
-	        catch (FIPAException fe) { fe.printStackTrace(); }
-	        BBagent=this;
-	        addCapability(new CommunicationCenter(BBagent));
+        	DFService.register(this, dfd );
+        	log.info("BB Registered with DF");
+        }
+        catch (FIPAException fe) { fe.printStackTrace(); }
+        
+        /* Registering with DF finished*/
+        
+        
+        BBagent=this;
+        addCapability(new CommunicationCenter(BBagent));
 	}
 	
 

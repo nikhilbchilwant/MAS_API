@@ -23,15 +23,15 @@ import jade.lang.acl.ACLMessage;
 
 public class SubscribeAgentBehvr extends Behaviour {
 
-	BeliefBase BBbeliefBase;
+	BeliefBase BBbeliefBase; //blackboard belief base
 	SubscriptionForm.parameterSubscription tempSubscription;
 	String AgentLocalName;
-	private int step;
-	private AID subscriber;
-	private String AgentType;
+	private int step; 
+	private AID subscriber; //subscriber of ZoneData
+	private String AgentType; //agent service
 	private Logger log;
 	private static NamedZoneData nzd;
-	private AID AgentToReg;
+	private AID AgentToReg; //AID of agent whose ZoneData subscriber wants to subscribe
 	
 	public SubscribeAgentBehvr(AID agent_to_reg, BeliefBase tempBeliefbase,
 			SubscriptionForm.parameterSubscription subscription, AID whoWantsTOSubscribe) {
@@ -52,22 +52,22 @@ public class SubscribeAgentBehvr extends Behaviour {
 		step=1;
 		switch(step){
 			case 1:
-//				log.info(AgentToReg);
+
 				this.AgentType=AgentUtil.GetAgentService(AgentToReg,myAgent);
-				if(AgentType!=null){
+				if(AgentType!=null){ //check if agent exists in DF
 					step++;
 				}
 						
 			case 2:
 				BeliefSet<ZoneSpace> ws=(BeliefSet<ZoneSpace>)BBbeliefBase.getBelief(AgentType);
 				
-				if(ws==null){
+				if(ws==null){ //Check if workspace is created for AgentType
 					
 				}
 				else{
 					
 					Iterator<ZoneSpace> it=ws.iterator();
-					while(it.hasNext()){
+					while(it.hasNext()){ //starts searching for ZoneSpace
 						
 
 						ZoneSpace zs=it.next();
@@ -78,7 +78,7 @@ public class SubscribeAgentBehvr extends Behaviour {
 								nzd=new NamedZoneData(parameter);
 								((BeliefSet<ZoneSpace>)BBbeliefBase.getBelief(AgentType)).removeValue(zs);
 
-								if(zs.findZoneData(nzd)!=null){
+								if(zs.findZoneData(nzd)!=null){ 
 									zs.findZoneData(nzd).subscribe(subscriber); //Throws null pointer exception if ZoneData doesnn't exists
 									((BeliefSet<ZoneSpace>)BBbeliefBase.getBelief(AgentType)).addValue(zs);								
 
