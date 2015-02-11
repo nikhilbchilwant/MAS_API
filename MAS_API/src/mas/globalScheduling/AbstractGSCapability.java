@@ -8,6 +8,8 @@ import java.util.Set;
 
 
 
+
+
 import mas.customer.plan.RegisterServicePlan;
 import mas.globalScheduling.goal.RegisterAgentGoal;
 import mas.globalScheduling.goal.RegisterServiceGoal;
@@ -18,7 +20,6 @@ import mas.util.MessageIds;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 
 import bdi4jade.belief.Belief;
 import bdi4jade.belief.BeliefSet;
@@ -60,6 +61,8 @@ public abstract class AbstractGSCapability  extends Capability {
 				TakeOrder.class));
 		plans.add(new SimplePlan(MessageTemplate.MatchConversationId(
 				MessageIds.Negotiate),Negotiate.class));
+		plans.add(new SimplePlan(MessageTemplate.MatchConversationId(
+				MessageIds.OrderConfirmation),AskForWaitingTime.class));
 
 		
 		return plans;
