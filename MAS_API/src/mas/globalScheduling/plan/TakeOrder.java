@@ -47,7 +47,7 @@ import bdi4jade.plan.PlanInstance;
 import bdi4jade.plan.PlanInstance.EndState;
 
 
-public class SendReplyToCustomerPlan extends Behaviour implements PlanBody {
+public class TakeOrder extends Behaviour implements PlanBody {
 
 	private Logger log;
 	private static final long serialVersionUID = -6288758975856575305L;
@@ -62,50 +62,52 @@ public class SendReplyToCustomerPlan extends Behaviour implements PlanBody {
 	public Iterator<Belief<?>> machineAIDiterator;
 	private job order;
 	private AID Blackboard_AID;
+
+
+public void init(PlanInstance planInstance) {
+	log=LogManager.getLogger();
+	log.info("update recieved");
+	Blackboard_AID=(AID) planInstance.getBeliefBase().getBelief(ID.Blackboard.LocalName).getValue();
 	
-	@Override
-	public void action() {
-			try {
-				
-				ZoneDataUpdate zdu=new ZoneDataUpdate(ID.GlobalScheduler.ZoneData.GetWaitingTime, order, true);
-				zdu.send(Blackboard_AID,zdu, myAgent);
-				log.info("zodeDataUpdate sent");
-
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.print(e);
-			}
-
+	try {
+		order=(job) ((MessageGoal)planInstance.getGoal()).getMessage().getContentObject();
+		
+	} catch (UnreadableException e) {
+		e.printStackTrace();
 	}
+
+	BeliefBase MachineBeliefBase=planInstance.getBeliefBase();
+	machineAIDiterator = MachineBeliefBase.getAllBeliefs().iterator();
 	
-	@Override
-	public boolean done() {
-		return (this.sent==true);
-	}
-
-	public EndState getEndState() {
-		return EndState.SUCCESSFUL;
-	}
-
-	public void init(PlanInstance planInstance) {
-		log=LogManager.getLogger();
-		
-		Blackboard_AID=(AID) planInstance.getBeliefBase().getBelief(ID.Blackboard.LocalName).getValue();
-		
+	this.agent = ID.Customer.LocalName;
+	this.sent = false;
+	this.done = false;
+	this.counter = 0;
+	this.times = 1;
+}
+	
+@Override
+public void action() {
 		try {
-			order=(job) ((MessageGoal)planInstance.getGoal()).getMessage().getContentObject();
 			
-		} catch (UnreadableException e) {
+			ZoneDataUpdate zdu=new ZoneDataUpdate(ID.GlobalScheduler.ZoneData.GetWaitingTime, order, true);
+			zdu.send(Blackboard_AID,zdu, myAgent);
+			log.info("zodeDataUpdate sent");
+
+		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.print(e);
 		}
-	
-		BeliefBase MachineBeliefBase=planInstance.getBeliefBase();
-		machineAIDiterator = MachineBeliefBase.getAllBeliefs().iterator();
-		
-		this.agent = ID.Customer.LocalName;
-		this.sent = false;
-		this.done = false;
-		this.counter = 0;
-		this.times = 1;
-	}
+
+}
+
+@Override
+public boolean done() {
+	return (this.sent==true);
+}
+
+public EndState getEndState() {
+	return EndState.SUCCESSFUL;
+}
+
 }

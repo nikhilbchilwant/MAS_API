@@ -6,6 +6,8 @@ import jade.core.Agent;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import mas.blackboard.nameZoneData.NamedZoneData;
+
 
 public class SubscriptionForm implements Serializable {
 	

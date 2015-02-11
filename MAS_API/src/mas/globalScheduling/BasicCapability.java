@@ -19,7 +19,5 @@ public class BasicCapability extends AbstractGSCapability{
 	protected void setup() {
 		log=LogManager.getLogger();
 		super.setup();
-
-		
 	}
 }

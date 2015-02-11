@@ -2,7 +2,7 @@ package mas.blackboard.nameZoneData;
 
 public final class DefaultZoneData implements ZoneDataName
 {
-   public String name() {
+   public String getName() {
       return "DEFAULT_PARAMETER";
    }
 

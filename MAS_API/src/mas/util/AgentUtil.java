@@ -15,6 +15,8 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 
 
+import mas.blackboard.nameZoneData.NamedZoneData;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +25,7 @@ public class AgentUtil {
 	
 	public static String GetAgentService(AID AgentToFind, Agent CurrentAgent) {
 		log=LogManager.getLogger();
+		log.info("GetAgentService called by "+CurrentAgent.getLocalName());
 		DFAgentDescription dfd = new DFAgentDescription();
 
 		ServiceDescription sd = new ServiceDescription();
@@ -94,7 +97,7 @@ public class AgentUtil {
 		}
 	}
 	
-	public static void makeZoneBB(Agent sender, String[] zones) {
+	public static void makeZoneBB(Agent sender, NamedZoneData[] zones) {
 		 ACLMessage msg=new ACLMessage(ACLMessage.INFORM);
 			msg.setConversationId(MessageIds.RegisterMe);
 			try {

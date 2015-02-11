@@ -2,30 +2,51 @@ package mas.blackboard.nameZoneData;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class NamedZoneData implements ZoneDataName
+import java.io.Serializable;
+import java.lang.StringBuilder;
+
+public class NamedZoneData implements ZoneDataName, Serializable
 {
-   private String name = null;
-   public String UpdateMsgID; //message ID of update message to be sent by Blackboard to subscribers of ZoneData
+   private String name;
+   private String MsgIDforUpdate; //message ID of update message to be sent by Blackboard to subscribers of ZoneData
 
 
-   public NamedZoneData(String name) {
-      this.name = name;
-
+   public static class Builder {
+	   private String name = null;
+	   private String UpdateMsgID=null;
+	   
+	   public Builder(String name){
+		   this.name=name;
+	   }
+	   
+	   public  Builder MsgID(String UpdateMsgID){
+		   this.UpdateMsgID=UpdateMsgID;
+		   return this;
+	   }
+	   
+	   public NamedZoneData build(){
+		   return new NamedZoneData(this);
+	   }
    }
    
-   public NamedZoneData(String name, String UpdateMsgID){
-	   this.name=name;
-	   this.UpdateMsgID=UpdateMsgID;
+   public NamedZoneData(Builder ConstructorBuilder) {
+	   this.name=ConstructorBuilder.name;
+	   this.MsgIDforUpdate=ConstructorBuilder.UpdateMsgID;	   
    }
 
-   public String name() {
+
+   public String getName() {
       return this.name;
+   }
+   
+   public String getUpdateMsgID(){
+	   return this.MsgIDforUpdate;
    }
 
    public boolean equals(Object obj) {
       if (obj == null || !(obj instanceof NamedZoneData)) return false;
 
-      return this.name().equals(((NamedZoneData)obj).name());
+      return this.getName().equals(((NamedZoneData)obj).getName());
    }
 
    public int hashCode() {
@@ -33,6 +54,6 @@ public class NamedZoneData implements ZoneDataName
    }
 
    public String toString() {
-      return "a NamedParameter \"" + this.name() + "\"";
+      return "a NamedParameter \"" + this.getName() + "\"";
    }
 }

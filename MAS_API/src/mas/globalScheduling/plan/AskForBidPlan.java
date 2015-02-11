@@ -99,15 +99,13 @@ public class AskForBidPlan extends Behaviour implements PlanBody{
 	//			System.out.println("OrderToLSA" + OrderToLSA);
 				step = 3;
 				break;
-			case 3:      			
-					step = 4;
-				break;
+
 		}   
 	}
 
 	@Override
 	public boolean done() {
-		return step >= 4;
+		return step >= 3;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+
 import mas.customer.plan.RegisterServicePlan;
 import mas.globalScheduling.goal.RegisterAgentGoal;
 import mas.globalScheduling.goal.RegisterServiceGoal;
@@ -17,6 +18,7 @@ import mas.util.MessageIds;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 
 import bdi4jade.belief.Belief;
 import bdi4jade.belief.BeliefSet;
@@ -55,9 +57,10 @@ public abstract class AbstractGSCapability  extends Capability {
 		plans.add(new SimplePlan(RegisterServiceGoal.class, RegisterServicePlan.class));
 		plans.add(new SimplePlan(RegisterAgentGoal.class,RegisterAgentToBlackboard.class));
 		plans.add(new SimplePlan(MessageTemplate.MatchConversationId(MessageIds.JobFromCustomer),
-				SendReplyToCustomerPlan.class));
-	/*	plans.add(new SimplePlan(MessageTemplate.MatchConversationId(
-							MessageIds.JobFromCustomer),SendReplyToCustomerPlan.class));*/
+				TakeOrder.class));
+		plans.add(new SimplePlan(MessageTemplate.MatchConversationId(
+				MessageIds.Negotiate),Negotiate.class));
+
 		
 		return plans;
 	}	

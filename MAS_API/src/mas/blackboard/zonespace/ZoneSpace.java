@@ -45,13 +45,13 @@ public class ZoneSpace implements ZoneSpaceIFace, Serializable{
 	@Override
 	public void createZoneData(NamedZoneData name) {
 		if(! Zdata.containsKey(name)){
-			ZoneData zd = new ZoneData(name, name.UpdateMsgID, bb);
+			ZoneData zd = new ZoneData(name, name.getUpdateMsgID(), bb);
 			Zdata.put(name, zd);
 		}		
 	}
 	
 	public void subscribeZoneData(String ZoneDataName, AID subscriber){
-		NamedZoneData nzd=new NamedZoneData(ZoneDataName);
+		NamedZoneData nzd=new NamedZoneData.Builder(ZoneDataName).build();
 		
 		if(findZoneData(nzd)!=null){
 			Zdata.get(nzd).subscribe(subscriber);
@@ -109,7 +109,7 @@ public class ZoneSpace implements ZoneSpaceIFace, Serializable{
 
 	@Override
 	public void unsubscribeZoneData(String ZoneDataName, AID subscriber) {
-		NamedZoneData nzd=new NamedZoneData(ZoneDataName);
+		NamedZoneData nzd=new NamedZoneData.Builder(ZoneDataName).build();
 		
 		if(findZoneData(nzd)!=null){
 			Zdata.get(nzd).unsubscribe(subscriber);

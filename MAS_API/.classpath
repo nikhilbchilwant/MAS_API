@@ -7,7 +7,7 @@
 	<classpathentry kind="lib" path="C:/Users/NikhilChilwant/workspace/jars/BDI4JADE/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/NikhilChilwant/workspace/jars/BDI4JADE/http.jar"/>
 	<classpathentry kind="lib" path="C:/Users/NikhilChilwant/workspace/jars/BDI4JADE/iiop.jar"/>
-	<classpathentry kind="lib" path="C:/Users/NikhilChilwant/workspace/jars/BDI4JADE/jade.jar" sourcepath="C:/Users/NikhilChilwant/Documents/7th sem/BTP/JADE-all-4.3.2_2/JADE-src-4.3.2/jade/src"/>
+	<classpathentry kind="lib" path="C:/Users/NikhilChilwant/workspace/jars/BDI4JADE/jade.jar" sourcepath="C:/Users/NikhilChilwant/Documents/7th sem/BTP/JADE-all-4.3.2_2/JADE-src-4.3.2.zip"/>
 	<classpathentry kind="lib" path="C:/Users/NikhilChilwant/workspace/jars/BDI4JADE/jadeTools.jar"/>
 	<classpathentry kind="lib" path="C:/Users/NikhilChilwant/workspace/jars/commons-lang3-3.3.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/NikhilChilwant/Documents/BTP2/apache-log4j-2.1-bin/apache-log4j-2.1-bin/log4j-api-2.1.jar">

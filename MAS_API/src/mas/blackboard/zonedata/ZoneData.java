@@ -18,11 +18,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ZoneData implements ZoneDataIFace, Serializable{
-	private NamedZoneData name;
+	protected NamedZoneData name;
 	private Set<Object> data;
-	public Set<AID> subscribers;
+	private Set<AID> subscribers;
 	private Logger log;
-	public String UpdateMessageID;
+	private String UpdateMessageID;
 	private Agent bb; //needed for sending update message
 	
 	public ZoneData(NamedZoneData name2, String UpdateMsgID, Agent blackboard){
@@ -34,26 +34,10 @@ public class ZoneData implements ZoneDataIFace, Serializable{
 		this.bb=blackboard;
 	}
 	
-	/*public static ZoneData newInstance(NamedZone title){
-		return new ZoneData(title.name());
-	}*/
-	
-	public String getName(){
-		return this.name.name();
-	}
-	
-	/*@Override
-	public boolean updateItem(Object oldObj, Object newObj){
-		if(this.data.contains(oldObj)){
-			this.data.remove(oldObj);
-			this.data.add(newObj);
-		}
 
-		return true;
-	}*/
-		
-	
-	
+	public String getName(){
+		return this.name.getName();
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -87,6 +71,7 @@ public class ZoneData implements ZoneDataIFace, Serializable{
 	@Override
 	public void addItem(Object obj) {
 		this.data.add(obj);
+		log.info("updated "+data);
 		sendUpdate();
 	
 	}
@@ -106,7 +91,8 @@ public class ZoneData implements ZoneDataIFace, Serializable{
 	@Override
 	public void subscribe(AID agent) {
 		subscribers.add(agent);
-		log.info(agent.getLocalName()+" subscribed for "+name);
+		log.info(agent.getLocalName()+" subscribed for "+name+" "+subscribers);
+		
 		
 	}
 
@@ -120,23 +106,43 @@ public class ZoneData implements ZoneDataIFace, Serializable{
 	public void RemoveAllnAdd(Object obj) {
 		data.clear();
 		data.add(obj);
+		log.info("updated "+data);
+		sendUpdate();
 	
 	}
 
+	public String getUpdateMessageID(){
+		return UpdateMessageID;
+	}
+	
+	public Set<AID> getSubscribers(){
+		return subscribers;
+	}
+	
+	public Set<Object> getData(){
+		return data;
+	}
 	public void sendUpdate(){
+		
 		ACLMessage update=new ACLMessage(ACLMessage.INFORM);		
 		update.setConversationId(UpdateMessageID);
-		for(AID reciever : subscribers){
+		
+		for(AID reciever : getSubscribers()){
 			update.addReceiver(reciever);
-			
+			log.info("sent update of "+name.getName()+" to "+reciever);
 		}
 		try {
-			update.setContentObject(this);
+			update.setContentObject((Serializable) getData());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		bb.send(update);
-		log.info("sent update of "+name.name());
+		
 	}
+
+
+
+	
+	
 
 }

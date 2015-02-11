@@ -2,12 +2,14 @@ package mas.blackboard.behvr;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import mas.blackboard.nameZoneData.NamedZoneData;
 import mas.blackboard.namezonespace.NamedZoneSpace;
+import mas.blackboard.zonedata.ZoneData;
 import mas.blackboard.zonespace.ZoneSpace;
 import mas.util.AgentUtil;
 import mas.util.SubscriptionForm;
@@ -69,19 +71,25 @@ public class SubscribeAgentBehvr extends Behaviour {
 					Iterator<ZoneSpace> it=ws.iterator();
 					while(it.hasNext()){ //starts searching for ZoneSpace
 						
-
+						
 						ZoneSpace zs=it.next();
 						
 						if(zs.getName().equalsIgnoreCase(tempSubscription.Agent.getLocalName())){
 							for (String parameter : tempSubscription.parameters) {
 
-								nzd=new NamedZoneData(parameter);
+								nzd=new NamedZoneData.Builder(parameter).build();
 								((BeliefSet<ZoneSpace>)BBbeliefBase.getBelief(AgentType)).removeValue(zs);
-
+//								log.info("finding zone data: "+nzd.getName());
 								if(zs.findZoneData(nzd)!=null){ 
 									zs.findZoneData(nzd).subscribe(subscriber); //Throws null pointer exception if ZoneData doesnn't exists
 									((BeliefSet<ZoneSpace>)BBbeliefBase.getBelief(AgentType)).addValue(zs);								
+									Iterator<ZoneSpace> izd=((Set<ZoneSpace>)((BeliefSet<ZoneSpace>)BBbeliefBase.getBelief(AgentType)).getValue()).iterator();
 
+									try {
+										Thread.sleep(0); //without this sendupdate() from zoneData was not working. Don't know why.
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									}
 									step++;									
 								}
 								else{

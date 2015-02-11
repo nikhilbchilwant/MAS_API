@@ -6,6 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.UnreadableException;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -67,11 +68,11 @@ public class UpdateParam extends OneShotBehaviour implements PlanBody {
 						ZoneSpace zs=it.next();
 
 						if(zs.getName().equalsIgnoreCase(Agent.getLocalName())){
-							NamedZoneData nzd = new NamedZoneData(info.getName());
+							NamedZoneData nzd = new NamedZoneData.Builder(info.getName()).build();
 							((BeliefSet<ZoneSpace>)BBBeliefBase.getBelief(AgentType)).removeValue(zs);
 
 							if(zs.findZoneData(nzd)!=null){
-								
+							
 						/*		ACLMessage update=new ACLMessage(ACLMessage.INFORM);
 								ZoneData zd=((ZoneData)zs.findZoneData(nzd));
 								update.setConversationId(zd.UpdateMessageID);
@@ -84,24 +85,31 @@ public class UpdateParam extends OneShotBehaviour implements PlanBody {
 								else{
 									zs.findZoneData(nzd).RemoveAllnAdd(info.getValue());
 								}
+												
+								((BeliefSet<ZoneSpace>)BBBeliefBase.getBelief(AgentType)).addValue(zs);
 								
-								/*try {
-									update.setContentObject(zs.findZoneData(nzd));
+		/*						ZoneData temp_zd=zs.findZoneData(nzd);
+								ACLMessage update=new ACLMessage(ACLMessage.INFORM);							
+								update.setConversationId(temp_zd.getUpdateMessageID());
+								for(AID reciever : temp_zd.getSubscribers()){
+									update.addReceiver(reciever);	
+								}
+								try {
+									update.setContentObject((Serializable) temp_zd.getData());
 								} catch (IOException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								
 								myAgent.send(update);*/
-								((BeliefSet<ZoneSpace>)BBBeliefBase.getBelief(AgentType)).addValue(zs);
-								log.info("updated value of "+nzd.name());
-								log.info("updated ZoneData: "+(((BeliefSet<ZoneSpace>)BBBeliefBase.getBelief(AgentType)).getValue().iterator().next().findZoneData(new NamedZoneData(info.getName()))));
+								
+//								log.info("update of "+temp_zd.getName()+ " sent");
+//								log.info("updated value of "+nzd.getName());
+//								log.info("updated ZoneData: "+(((BeliefSet<ZoneSpace>)BBBeliefBase.getBelief(AgentType)).getValue().iterator().next().findZoneData(new NamedZoneData.Builder(info.getName()).build())));
 								
 								
 																
 							}
 							else{
-								log.info("couldn't find zone for "+nzd.name());
+								log.info("couldn't find zone for "+nzd.getName());
 							}
 
 							

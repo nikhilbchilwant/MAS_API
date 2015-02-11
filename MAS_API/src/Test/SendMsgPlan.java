@@ -10,6 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 
 
+
+
+import mas.blackboard.nameZoneData.NamedZoneData;
 import mas.util.AgentUtil;
 import mas.util.ID;
 
@@ -70,7 +73,12 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 		
         ACLMessage msg2=new ACLMessage(ACLMessage.CFP);
 		msg2.setConversationId(MessageIds.RegisterMe);
-		String[] ZoneDataNames={ID.Customer.ZoneData.JobList,ID.Customer.ZoneData.acceptedJobs,ID.Customer.ZoneData.Negotiation};
+		
+		NamedZoneData nzd1=new NamedZoneData.Builder(ID.Customer.ZoneData.JobList).MsgID(MessageIds.JobFromCustomer).build();
+		NamedZoneData nzd2=new NamedZoneData.Builder(ID.Customer.ZoneData.Negotiation).MsgID(MessageIds.Negotiate).build();
+		NamedZoneData nzd3=new NamedZoneData.Builder(ID.Customer.ZoneData.acceptedJobs).MsgID(MessageIds.OrderConfirmation).build();
+		
+		NamedZoneData[] ZoneDataNames={nzd1,nzd2,nzd3};
 		try {
 			msg2.setContentObject(ZoneDataNames);
 		} catch (IOException e1) {
@@ -85,7 +93,7 @@ public class SendMsgPlan extends OneShotBehaviour implements PlanBody{
 //		ParameterSubscription ps=new ParameterSubscription(MASconstants.AgentService.Customer);
 		
 		SubscriptionForm sf=new SubscriptionForm();
-		String[] PSstring=new String[2];
+		String [] PSstring=new String[2];
 		PSstring[0]=ID.GlobalScheduler.ZoneData.NegotiationJob;
 		PSstring[1]=ID.GlobalScheduler.ZoneData.waitingTime;
 		sf.AddSubscriptionReq(new AID(ID.GlobalScheduler.LocalName,true), PSstring );

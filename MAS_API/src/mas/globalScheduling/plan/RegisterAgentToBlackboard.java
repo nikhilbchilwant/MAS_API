@@ -5,6 +5,7 @@ import java.io.IOException;
 import jade.core.AID;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
+import mas.blackboard.nameZoneData.NamedZoneData;
 import mas.util.AgentUtil;
 import mas.util.ID;
 import mas.util.MessageIds;
@@ -26,38 +27,7 @@ public class RegisterAgentToBlackboard extends OneShotBehaviour implements PlanB
 	public void init(PlanInstance planInstance) {
 		step=0;
 		
-		/*						
-		AID bba = AgentUtil.findBlackboardAgent(this);
-		bCap.getBeliefBase().updateBelief(
-					ID.Blackboard.LocalName, bba);
-		
-		
-		
-		String[] zones = {ID.GlobalScheuler.ZoneData.NegotiationJob,
-				ID.GlobalScheuler.ZoneData.WorkOrder				
-		};
-			
-		AgentUtil.makeZoneBB(this,zones);
-				
-		SubscriptionForm subform = new SubscriptionForm();
-		AID target = new AID(ID.Customer.LocalName, AID.ISLOCALNAME);
-		String[] params = {ID.Customer.ZoneData.acceptedJobs,ID.Customer.ZoneData.JobList,
-						ID.Customer.ZoneData.Negotiation};
-		
-		subform.AddSubscriptionReq(target, params);
-		
-		AID target_LSA=new AID(ID.Customer.LocalName,AID.ISLOCALNAME);
-		
-		String[] params_LSA={ID.Customer.ZoneData.JobList};
-		subform.AddSubscriptionReq(target_LSA, params_LSA);
-		
-		AgentUtil.subscribeToParam(this, bba, subform);*/
-		
-		
-		
-		
-		
-		
+	
 	}
 
 	@Override
@@ -65,7 +35,15 @@ public class RegisterAgentToBlackboard extends OneShotBehaviour implements PlanB
 		AID bb_aid=AgentUtil.findBlackboardAgent(myAgent);
 	    ACLMessage msg2=new ACLMessage(ACLMessage.CFP);
 		msg2.setConversationId(MessageIds.RegisterMe);
-		String[] ZoneDataNames={"JobStatus"};
+		
+		NamedZoneData ZoneDataName1=new NamedZoneData.Builder(ID.GlobalScheduler.ZoneData.jobForMachine).MsgID(MessageIds.ReplyFromScheduler).build();
+		NamedZoneData ZoneDataName2=new NamedZoneData.Builder(ID.GlobalScheduler.ZoneData.ConfirmedOrder).MsgID("").build();
+		NamedZoneData ZoneDataName3=new NamedZoneData.Builder(ID.GlobalScheduler.ZoneData.askforBid).MsgID("").build();
+		NamedZoneData ZoneDataName4=new NamedZoneData.Builder(ID.GlobalScheduler.ZoneData.GetWaitingTime).MsgID("").build();
+		NamedZoneData ZoneDataName5=new NamedZoneData.Builder(ID.GlobalScheduler.ZoneData.NegotiationJob).MsgID("").build();
+		NamedZoneData ZoneDataName6=new NamedZoneData.Builder(ID.GlobalScheduler.ZoneData.waitingTime).MsgID("").build();
+		NamedZoneData ZoneDataName7=new NamedZoneData.Builder(ID.GlobalScheduler.ZoneData.WorkOrder).MsgID("").build();
+		NamedZoneData[] ZoneDataNames={ZoneDataName1,ZoneDataName2,ZoneDataName3,ZoneDataName4,ZoneDataName5,ZoneDataName6,ZoneDataName7};
 		try {
 			msg2.setContentObject(ZoneDataNames);
 		} catch (IOException e1) {
@@ -73,11 +51,11 @@ public class RegisterAgentToBlackboard extends OneShotBehaviour implements PlanB
 		}
 
 		
-		String[] zones = {ID.GlobalScheduler.ZoneData.NegotiationJob,
+		/*String[] zones = {ID.GlobalScheduler.ZoneData.NegotiationJob,
 				ID.GlobalScheduler.ZoneData.WorkOrder				
-		};
+		};*/
 			
-		AgentUtil.makeZoneBB(myAgent,zones);
+		AgentUtil.makeZoneBB(myAgent,ZoneDataNames);
 		
 		
 		

@@ -60,7 +60,7 @@ public class jobGeneratePlan extends Behaviour implements PlanBody{
 
 	@Override
 	public boolean done() {
-		return false;
+		return true;
 	}
 
 }

@@ -30,7 +30,7 @@ public class AddAgent extends OneShotBehaviour implements PlanBody{
 	private AID AgentToReg; //agent to be added in blackboard workspace
 	private BeliefBase belief;  //belief base of blackboard
 	private String AgentType; //To be taken from message content
-	private String[] ZoneDataNameArray; //containes names of zone data s to be created fro AgentToReg
+	private NamedZoneData[] ZoneDataNameArray; //containes names of zone data s to be created fro AgentToReg
 	private Logger log;
 
 	@Override
@@ -47,7 +47,7 @@ public class AddAgent extends OneShotBehaviour implements PlanBody{
 		belief=PI.getBeliefBase();
 		try {
 			Object temp=Message.getContentObject();
-			ZoneDataNameArray=(String[])temp;			
+			ZoneDataNameArray=(NamedZoneData[])temp;			
 		} catch (UnreadableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,8 +71,8 @@ public class AddAgent extends OneShotBehaviour implements PlanBody{
 		NamedZoneSpace nz=new NamedZoneSpace(AgentToReg);
 		ZoneSpace zs=new ZoneSpace(nz,myAgent);
 		for(int i=0;i<ZoneDataNameArray.length;i++){
-			NamedZoneData nzd=new NamedZoneData(ZoneDataNameArray[i]);			
-			zs.createZoneData(nzd);
+//			NamedZoneData nzd=new NamedZoneData.Builder(ZoneDataNameArray[i].getName()).;			
+			zs.createZoneData(ZoneDataNameArray[i]);
 		}
 		wspace.addValue(zs);
 		((BDIAgent)myAgent).getRootCapability().getBeliefBase().addBelief(wspace); //update belief base
